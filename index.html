@@ -831,7 +831,52 @@
             </div>
         </section>
 
-        <!-- TAB 3: COMMISSIONS & PATREON (NEW) -->
+ <!-- NEW TAB: REQUESTS -->
+        <section id="requests" class="page">
+            <div class="page-header">
+                <div class="purple-blur-spot" style="background: radial-gradient(circle, #a855f7, transparent 70%); opacity: 0.35; height: 240px;"></div>
+                <p class="tagline-top">custom creations</p>
+                <h1 class="hero-title" style="font-size: 2.4rem;">Requests</h1>
+                <div class="tagline-bottom">
+                    <span class="subline"></span>
+                    <span>ideas brought to life</span>
+                    <span class="subline"></span>
+                </div>
+            </div>
+
+            <div class="floral-divider">
+                <span class="line"></span>
+                <span style="font-size: 0.8rem;">📜 🦋 📜</span>
+                <span class="line"></span>
+            </div>
+
+            <div class="content-stack">
+                <!-- Bot Request Box -->
+                <div class="glass-card">
+                    <h2 class="card-heading">✦ Bot Request</h2>
+                    <p class="card-text" style="margin-bottom: 12px;">
+                        Have an idea you want me to try tackling? I have a form for that. Full disclosure - these take a while to complete. You can give small ideas or large - no limits here!
+                    </p>
+                    <a href="https://tally.so/r/wQZ9j8" target="_blank" rel="noopener noreferrer" class="action-button">
+                        Submit Bot Request
+                    </a>
+                </div>
+
+                <!-- Alt Greeting Request Box -->
+                <div class="glass-card">
+                    <h2 class="card-heading">✦ Alt Greeting Request</h2>
+                    <p class="card-text" style="margin-bottom: 12px;">
+                        Additionally, if you have an idea for a different greeting, I have a form for that as well. Currently, I only post additional scenes to LinkInLove or DreamJourney!
+                    </p>
+                    <a href="https://tally.so/r/440JK5" target="_blank" rel="noopener noreferrer" class="action-button" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(168, 85, 247, 0.6)); border-color: rgba(168, 85, 247, 0.5);">
+                        Submit Alt Greeting Request
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- TAB 3: COMMISSIONS & PATREON -->
         <section id="commissions" class="page">
             <div class="page-header">
                 <div class="purple-blur-spot" style="background: radial-gradient(circle, #ec4899, transparent 70%); opacity: 0.3; height: 240px;"></div>
@@ -953,6 +998,10 @@
             <button type="button" class="nav-button" onclick="onChange('characters', this)">
                 <span class="nav-icon">🌿</span>
                 <span class="nav-label">Characters</span>
+            </button>
+             <button type="button" class="nav-button" onclick="onChange('requests', this)">
+                <span class="nav-icon">📜</span>
+                <span class="nav-label">Requests</span>
             </button>
             <button type="button" class="nav-button" onclick="onChange('commissions', this)">
                 <span class="nav-icon">💎</span>
@@ -1156,7 +1205,7 @@
             id: 'dreamjourneyai',
             name: 'DreamJourneyAI',
             handle: 'Vorm on DreamJourneyAI',
-            description: 'I build my bots for this site. Amazing memory keeping and customizable chat models. Most recommended.',
+            description: 'I build my bots for this site. Amazing memory keeping and customizable chat models. Most recommended - this is my primary platform.',
             icon: '✨',
             accent: '#a78bfa',
             glow: 'rgba(167,139,250,0.3)',
