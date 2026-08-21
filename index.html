@@ -274,6 +274,118 @@
             line-height: 1.625;
         }
 
+           /* --- BUTTERFLY JUST RELEASED CARD --- */
+        .butterfly-card {
+            position: relative;
+            border-radius: 20px;
+            border: 1px solid rgba(192, 132, 252, 0.35);
+            padding: 28px 24px 24px 24px;
+            background: linear-gradient(135deg, rgba(35, 12, 58, 0.75), rgba(18, 6, 36, 0.85));
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(168, 85, 247, 0.15);
+        }
+
+        .butterfly-wing-decor {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 90px;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: drop-shadow(0 0 8px #a855f7);
+        }
+
+        .butterfly-wing-left { left: -15px; }
+        .butterfly-wing-right { right: -15px; transform: translateY(-50%) scaleX(-1); }
+
+        .just-released-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-cinzel);
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: #e879f9;
+            background: rgba(232, 121, 249, 0.12);
+            border: 1px solid rgba(232, 121, 249, 0.3);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            margin-bottom: 12px;
+        }
+
+        .release-title {
+            font-family: var(--font-cinzel-dec);
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+        }
+
+        .release-blurb {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: rgba(243, 232, 255, 0.85);
+            margin-bottom: 20px;
+        }
+
+        .release-links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .release-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-family: var(--font-cinzel);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+            text-align: center;
+        }
+
+        .release-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.2);
+            box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+        }
+
+        .release-btn.crushon {
+            background: rgba(192, 132, 252, 0.12);
+            border-color: rgba(192, 132, 252, 0.3);
+            color: #d8b4fe;
+        }
+
+        .release-btn.linkinlove {
+            background: rgba(244, 114, 182, 0.12);
+            border-color: rgba(244, 114, 182, 0.3);
+            color: #fbcfe8;
+        }
+
+        .release-btn.dreamjourney {
+            background: rgba(167, 139, 250, 0.12);
+            border-color: rgba(167, 139, 250, 0.3);
+            color: #c4b5fd;
+        }
+
+        .release-btn.tipsychat {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.3);
+            color: #bae6fd;
+        }
+
+        
         /* --- CHARACTERS PAGE STYLES --- */
         .character-card {
             position: relative;
@@ -804,6 +916,12 @@
                         "Seriously, I put trigger warnings for a reason. My bots aren't everyone's thing. My bots are for escapism and fantasy. It's not that deep."
                     </blockquote>
                 </div>
+                <!-- NEW: BUTTERFLY JUST RELEASED CARD -->
+                <div id="just-released-container">
+                    <!-- Dynamically Rendered by JS -->
+                </div>
+            </div>
+                
             </div>
         </section>
 
@@ -1080,6 +1198,74 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+
+ // --- 0. JUST RELEASED DATA ---
+        // Leave any link string empty ("") and its corresponding button will disappear!
+        const latestRelease = {
+            title: "Julian",
+            blurb: "Seemingly a perfect boyfriend - Julian is nothing like the ex you left behind.",
+            links: {
+                crushOn: "https://crushon.ai/en/character/bc104b7f-5907-4bb2-b074-e4ec9b671ffd/details?shared=true",
+                linkInLove: "https://linkin.love/chat/6545575661",
+                dreamjourneyAI: "https://dreamjourneyai.com/creation/bbc0a833-65df-45e4-b5bb-a51e8e22d8d5",
+                tipsyChat: "https://tipsy.chat/chat/1786829096763869467" // Left blank as an example; this button will automatically hide!
+            }
+        };
+
+        function renderJustReleased() {
+            const container = document.getElementById('just-released-container');
+            if (!container) return;
+
+            // Generate SVG backdrop wings for card styling
+            const wingSvg = `
+                <svg viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,75 C40,0 100,20 100,75 C100,130 40,150 0,75 Z" fill="url(#wingGrad)" opacity="0.6"/>
+                    <defs>
+                        <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#c084fc"/>
+                            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            `;
+
+            let buttonsHTML = '';
+
+            if (latestRelease.links.crushOn) {
+                buttonsHTML += `<a href="${latestRelease.links.crushOn}" target="_blank" rel="noopener noreferrer" class="release-btn crushon">💜 CrushOn</a>`;
+            }
+            if (latestRelease.links.linkInLove) {
+                buttonsHTML += `<a href="${latestRelease.links.linkInLove}" target="_blank" rel="noopener noreferrer" class="release-btn linkinlove">🌸 LinkInLove</a>`;
+            }
+            if (latestRelease.links.dreamjourneyAI) {
+                buttonsHTML += `<a href="${latestRelease.links.dreamjourneyAI}" target="_blank" rel="noopener noreferrer" class="release-btn dreamjourney">✨ DreamJourney</a>`;
+            }
+            if (latestRelease.links.tipsyChat) {
+                buttonsHTML += `<a href="${latestRelease.links.tipsyChat}" target="_blank" rel="noopener noreferrer" class="release-btn tipsychat">🦋 TipsyChat</a>`;
+            }
+
+            container.innerHTML = `
+                <div class="butterfly-card">
+                    <div class="butterfly-wing-decor butterfly-wing-left">${wingSvg}</div>
+                    <div class="butterfly-wing-decor butterfly-wing-right">${wingSvg}</div>
+                    
+                    <div class="just-released-badge">
+                        <span>🦋</span>
+                        <span>Just Released</span>
+                    </div>
+                    
+                    <h2 class="release-title">${latestRelease.title}</h2>
+                    <p class="release-blurb">${latestRelease.blurb}</p>
+                    
+                    <div class="release-links-grid">
+                        ${buttonsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+
+        
         // --- 1. CHARACTERS DATA ---
         const characters = [
           {
